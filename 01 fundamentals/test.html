@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>WebCompTesting</title>
+  <!-- TEST 1 -->
+  <!-- <style>
+    p {
+      color: red;
+    }
+  </style> -->
+  <!-- END TEST 1 -->
+
+  <!-- TEST 3 -->
+  <link rel="import" href="notice.html" id="notice" />
+</head>
+
+<body>
+  <!-- TEST 1 -->
+  <!-- <p>Paragraph outter app</p>
+  <div id="simple-div"></div>
+  <script>
+    let $div = document.getElementById("simple-div");
+    $div.attachShadow({ mode: "open" });
+    $div.shadowRoot.innerHTML = `
+      <style>
+        p {
+          color: blue;
+        }
+      </style>
+      <p>Paragraph within shadow dom</p>
+    `;
+  </script> -->
+  <!-- END TEST 1 -->
+
+  <!-- TEST 2 -->
+  <!-- <template id="list-item">
+    <li>
+      <h1>A Movie Title</h1>
+      <p>A movie plot.</p>
+    </li>
+  </template>
+  <ul id="movie-list"></ul>
+  <script>
+    const items = [
+      {
+        "title": "The Lord of the Rings: The Fellowship of the Ring",
+        "plot": "A meek Hobbit from the Shire.."
+      },
+      {
+        "title": "The Lord of the Rings: The Two Towers",
+        "plot": "While Frodo and Sam.."
+      },
+      {
+        "title": "The Lord of the Rings: The Return of the King",
+        "plot": "Gandalf and Aragon.."
+      }
+    ];
+    const $template = document.getElementById("list-item");
+    const $list = document.getElementById("movie-list");
+
+    items.forEach((movie) => {
+      const $clone = document.importNode($template.content, true);
+      $clone.querySelector('h1').innerText = movie.title;
+      $clone.querySelector('p').innerText = movie.plot;
+      $list.appendChild($clone);
+    });
+  </script> -->
+  <!-- END TEST 2 -->
+
+  <!-- TEST 3 -->
+  <script>
+    const $link = document.getElementById("notice");
+    const content = $link.import.querySelector(".notice-frame");
+    document.body.appendChild(content.cloneNode(true));
+  </script>
+</body>
+
+</html>
