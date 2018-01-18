@@ -8,6 +8,18 @@ class TurukStarRating extends HTMLElement {
     this._$bottom = null;
     // Data
     this._disabled = false;
+    this._value = 0;
+    this._touched = false;
+  }
+
+  set value(value) {
+    if (this._value === value) return;
+    this._touched = true;
+    this._value = value;
+    this._render();
+  }
+  get value() {
+    return this._value;
   }
   
   connectedCallback() {
@@ -81,10 +93,31 @@ class TurukStarRating extends HTMLElement {
       </div>
       `;
       this._disabled = (this.getAttribute("disabled") !== null);
+      this._$top = this._root.querySelector(".top");
+      this._$bottom = this._root.querySelector(".bottom");
+      this._$bottom.addEventListener("click", (event) => {
+        if (this._disabled !== true && event.target.dataset.value !== undefined) {
+          if (this._value !== event.target.dataset.value) {
+            this.dispatchEvent(new Event("change"));
+            this.value = event.target.dataset.value;
+          }
+        }
+      });
+      const initValue = this.getAttribute("value");
+      if (initValue !== null) {
+        this._value = initValue;
+        this._render();
+      }
+  }
+
+  _render() {
+    if (this._$top !== null) {
+      this._$top.style.width = ((this._value * 10) * 2) + "%";
+    }
   }
 
   static get observedAttributes() {
-    return ["disabled"];
+    return ["disabled", "value"];
   }
 
   attributeChangedCallback(name, oldValue, newValue) {
@@ -93,10 +126,14 @@ class TurukStarRating extends HTMLElement {
         case "disabled":
           this._disabled = (newValue !== null);
           break;
+        case "value":
+          if (this._touched === false) {
+            this._value = newValue;
+            this._render();
+          }
+          break;
       }
     }
   }
-
-
 }
 window.customElements.define("turuk-star-rating", TurukStarRating);
